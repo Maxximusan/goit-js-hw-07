@@ -9,8 +9,9 @@ console.log(ourGallery);
 const imgMarkup = createGalleryItemsMarkup(galleryItems);
 ourGallery.insertAdjacentHTML('afterbegin', imgMarkup);
 
-console.log(createGalleryItemsMarkup(galleryItems));
+ourGallery.addEventListener('click', onImgClick)
 
+console.log(createGalleryItemsMarkup(galleryItems));
 function createGalleryItemsMarkup(galleryItems) {
 
     return galleryItems.map(({ preview, original, description }) => {
@@ -31,7 +32,28 @@ function createGalleryItemsMarkup(galleryItems) {
 };
 
 
+function onImgClick(event) {
+    event.preventDefault();
 
+    if (!event.target.classList.contains("gallery__image")) {
+        return;
+    };
+
+    console.log(event.target);
+
+    // !
+    const bigImg = document.querySelector('gallery__link');
+    bigImg.href = event.target.dataset.source;
+
+    const instance = basicLightbox.create(`
+    <img src="assets/images/image.png" width="800" height="600">`);
+
+    instance.show();
+
+
+    console.log(event);
+
+};
 
 
 
