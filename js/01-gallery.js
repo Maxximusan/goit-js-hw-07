@@ -55,6 +55,7 @@ function onImgClick(event) {
     console.log(event);
 
     window.addEventListener('keydown', onEscape);
+
     function onEscape(event) {
         if (event.code === 'Escape') {
             instance.close();
