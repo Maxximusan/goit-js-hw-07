@@ -7,11 +7,13 @@ const ourGallery = document.querySelector('.gallery');
 console.log(ourGallery);
 
 const imgMarkup = createGalleryItemsMarkup(galleryItems);
+console.log(createGalleryItemsMarkup(galleryItems));
+
 ourGallery.insertAdjacentHTML('afterbegin', imgMarkup);
 
 ourGallery.addEventListener('click', onImgClick)
 
-console.log(createGalleryItemsMarkup(galleryItems));
+
 function createGalleryItemsMarkup(galleryItems) {
 
     return galleryItems.map(({ preview, original, description }) => {
@@ -41,17 +43,24 @@ function onImgClick(event) {
 
     console.log(event.target);
 
-    // !
-    const bigImg = document.querySelector('gallery__link');
-    bigImg.href = event.target.dataset.source;
+
+    const bigImg = event.target.dataset.source;
 
     const instance = basicLightbox.create(`
-    <img src="assets/images/image.png" width="800" height="600">`);
+    <img class="modal "src="${bigImg}" width="800" height="600">`);
 
     instance.show();
 
 
     console.log(event);
+
+    window.addEventListener('keydown', onEscape);
+    function onEscape(event) {
+        if (event.code === 'Escape') {
+            instance.close();
+            window.removeEventListener('keydown', onEscape);
+        }
+    }
 
 };
 
